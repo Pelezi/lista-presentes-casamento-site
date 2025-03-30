@@ -1,0 +1,30 @@
+{
+  "name": "lista-presentes-site",
+  "version": "0.0.0",
+  "scripts": {
+    "dev": "vite --host",
+    "build": "tsc && vite build"
+  },
+  "dependencies": {
+    "@vercel/analytics": "^1.4.1",
+    "@vercel/speed-insights": "^1.1.0",
+    "axios": "^1.4.0",
+    "formik": "^2.2.9",
+    "react": "^18.0.0",
+    "react-dom": "^18.0.0",
+    "react-easy-crop": "^5.2.0",
+    "react-icons": "^4.12.0",
+    "react-input-mask": "^2.0.4",
+    "react-router-dom": "^6.11.1",
+    "yup": "^1.1.1"
+  },
+  "devDependencies": {
+    "@types/react": "^18.3.18",
+    "@types/react-dom": "^18.3.5",
+    "@types/react-input-mask": "^3.0.6",
+    "@vitejs/plugin-react": "^4.0.0",
+    "json-server": "^0.17.3",
+    "typescript": "^4.9.5",
+    "vite": "^4.3.5"
+  }
+}

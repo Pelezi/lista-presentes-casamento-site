@@ -1,0 +1,83 @@
+.section{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+    border-radius: 0.5rem;
+    background-color: rgba(255, 255, 255, 0.5);
+    text-align: center;
+    margin: 0.5rem;
+}
+
+.sectionButtons{
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+}
+
+.contentSection{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: start;
+}
+
+.contentRow{
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+}
+
+.contentRow p{
+    margin: 5px 0;
+}
+
+.contentBlock{
+    margin-left: 20px;
+    flex: 1;
+}
+
+.contentBlock h3{
+    text-align: left;
+}
+
+.contentTitle{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 20px;
+}
+
+.endereco{
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    width: 95%;
+    margin-top: 20px;
+}
+
+.buttons{
+    position: fixed;
+    top: 95px;
+    right: 50px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.profiles{
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+}
+
+.link{
+    cursor: pointer;
+}
+
+.giftImage {
+    border-radius: 10px;
+    width: 80vw;
+    max-width: 300px;
+}

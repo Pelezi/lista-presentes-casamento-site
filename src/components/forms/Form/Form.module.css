@@ -1,0 +1,37 @@
+.form-wrapper {
+    display: flex;
+    justify-content: center;
+    height: fit-content;
+}
+
+.form {
+    display: flex;
+    flex-direction: column; 
+    align-items: center; 
+    width: 35vw;
+    background-color: #f2f2f2; 
+    border-radius: 10px;
+    padding: 20px; 
+    margin: 10px;
+}
+
+.submitting {
+    pointer-events: none;
+    opacity: 0.4;
+}
+
+.loading {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #0077cc;
+}
+
+@media screen and (max-width: 600px) {
+    .form {
+        width: 80vw;
+    }
+}

@@ -1,0 +1,127 @@
+.loginWrapper * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.loginWrapper {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    background-repeat: repeat;
+}
+
+.buque {
+    position: absolute;
+    top: 0;
+    z-index: 1;
+    max-width: 100%;
+}
+
+.buque.buquel {
+    left: 0;
+}
+
+.buque.buquer {
+    right: 0;
+}
+
+
+.contentBox {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
+.contentBox .formBox {
+    background-color: white;
+    width: 80%;
+    padding: 40px;
+    border-radius: 20px;
+}
+
+.contentBox .formBox h2 {
+    color: rgb(120, 170, 227);
+    font-weight: 600;
+    font-size: 2em;
+    text-transform: uppercase;
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+.contentBox .formBox .inputBox {
+    margin-bottom: 20px;
+}
+
+.contentBox .formBox .inputBox input {
+    width: 100%;
+    padding: 10px;
+    outline: none;
+    font-weight: 400;
+    border: none;
+    font-size: 1em;
+    color: rgb(34, 107, 190);
+    background-color: #ecf2f7;
+    border-radius: 5px;
+}
+
+.contentBox .formBox .inputBox span {
+    font-size: 1.5em;
+    margin-bottom: 5px;
+    display: inline-block;
+    color: rgb(34, 107, 190);
+    font-weight: 400;
+}
+
+.contentBox .formBox .inputBox input::placeholder {
+    color: rgb(137, 164, 196);
+}
+
+.contentBox .formBox .inputBox input[type=submit] {
+    background: rgb(120, 170, 227);
+    color: #fff;
+    outline: none;
+    border: none;
+    font-weight: 500;
+    cursor: pointer;
+    font-size: 1em;
+    transition: 0.3s;
+}
+
+.contentBox .formBox .inputBox input[type=submit]:hover {
+    background: rgb(154, 152, 224);
+}
+
+.contentBox .formBox .inputBox p {
+    color: rgb(34, 107, 190);
+}
+
+.contentBox .formBox .inputBox p a {
+    color: rgb(154, 152, 224);
+}
+
+.contentBox .formBox .inputBox p a:hover {
+    color: rgb(154, 152, 224);
+}
+
+@media only screen and (max-width: 768px) {
+    .buque {
+        max-width: 35%;
+    }
+    .contentBox .formBox h2 {
+        font-size: 1.5em;
+    }
+    .contentBox .formBox .inputBox input {
+        font-size: 4vw;
+    }
+    .contentBox .formBox .inputBox span {
+        font-size: 5vw;
+    }
+    .contentBox .formBox .inputBox input[type=submit] {
+        font-size: 4vw;
+    }
+}

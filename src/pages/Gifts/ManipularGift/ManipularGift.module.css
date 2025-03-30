@@ -1,0 +1,56 @@
+.inputRow {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    width: 100%;
+}
+
+.flex1{
+    flex: 1;
+}
+
+.flex2 {
+    flex: 2;
+}
+
+.inputRow fieldset {
+    padding: 0;
+}
+
+.formGroup {
+    display: flex; 
+    flex-direction: column;
+    margin-bottom: 20px;
+    /* width: 100%; */
+    border: none;
+}
+
+.label{
+    font-weight: 400;
+    color: rgb(34, 107, 190);
+}
+
+.input {
+    padding: 10px;
+    border-radius: 5px;
+    border: none;
+    background-color: #ecf2f7;
+    margin-top: 5px;
+    color: rgb(34, 107, 190);
+}
+
+.cropContainer {
+    position: relative;
+    width: 90vw;
+    height: 400px;
+}
+
+.loading {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #0077cc;
+}

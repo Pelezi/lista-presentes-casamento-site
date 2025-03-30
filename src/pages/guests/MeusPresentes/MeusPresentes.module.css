@@ -1,0 +1,12 @@
+.section{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.title {
+    font-size: 30px;
+    margin: 0;
+    text-align: center;
+}
