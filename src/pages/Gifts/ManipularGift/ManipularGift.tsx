@@ -38,6 +38,7 @@ const ManipularGift: React.FC = () => {
         name: Yup.string().required("Campo obrigatório"),
         value: Yup.string().required("Campo obrigatório"),
         mpcode: Yup.string(),
+        fileName: Yup.string(),
     });
 
     const [selectedImage, setSelectedImage] = useState<File | null>(null);
@@ -173,6 +174,13 @@ const ManipularGift: React.FC = () => {
                         name="mpcode"
                         errors={errors.mpcode}
                         touched={touched.mpcode}
+                    />
+                    <Input
+                        label="nome do arquivo"
+                        name="fileName"
+                        hidden
+                        errors={errors.fileName}
+                        touched={touched.fileName}
                     />
                     <fieldset className={styles.formGroup}>
                         <label htmlFor="Foto" className={styles.label}>
