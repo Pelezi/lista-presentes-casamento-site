@@ -3,27 +3,23 @@ import api from './api';
 export interface Gift {
     id: string;
     name: string;
-    photoUrl?: string;
-    quantity: number;
-    description: string;
-    guests?: Array<
-        {
-            count: number;
-            guest:{
-                id: string;
-                name: string;
-                phone: string;
-                
-            };
-        }
-    >;
-    count?: number;
+    fileName?: string;
+    value: string;
+    mpcode?: string;
 }
 
-export const createGift = async (gift: Gift, guestId?: string): Promise<Gift> => {
-    // Ensure id is removed from gift object
-    const { id, ...giftWithoutId } = gift;
-    const response = await api.post<Gift>(`/gifts${guestId ? `?guestId=${guestId}` : ''}`, giftWithoutId);
+export const createGift = async (formData: FormData, guestId?: string): Promise<Gift> => {
+
+    formData.delete('id');
+    const response = await api.post<Gift>(
+        `/gifts${guestId ? `?guestId=${guestId}` : ''}`,
+        formData,
+        {
+            headers: {
+                'Content-Type': 'multipart/form-data',
+            },
+        }
+    );
     return response.data;
 }
 
@@ -42,8 +38,16 @@ export const getGiftsByGuestId = async (id: string): Promise<Gift[]> => {
     return response.data;
 }
 
-export const updateGift = async (gift: Gift, guestId?: string): Promise<Gift> => {
-    const response = await api.put<Gift>(`/gifts/uuid/${gift.id}${guestId ? `?guestId=${guestId}` : ''}`, gift);
+export const updateGift = async (formData: FormData, guestId?: string): Promise<Gift> => {
+    const response = await api.put<Gift>(
+        `/gifts/uuid/${formData.get("id")}${guestId ? `?guestId=${guestId}` : ''}`, 
+        formData,
+        {
+            headers: {
+                'Content-Type': 'multipart/form-data',
+            },
+        }
+    );
     return response.data;
 }
 
@@ -62,11 +66,12 @@ export const removeGiftFromGuest = async (giftId: string, guestId: string): Prom
     return response.data;
 }
 
-export const createOrUpdateGift = async (gift: Gift, guestId?: string): Promise<Gift> => {
-    if (!gift.id || gift.id === '') {
-        return await createGift(gift, guestId);
+export const createOrUpdateGift = async (formData: FormData, guestId?: string): Promise<Gift> => {
+    // if (!gift.id || gift.id === '') {
+    if (!formData.get('id')) {
+        return await createGift(formData, guestId);
     } else {
-        return await updateGift(gift, guestId);
+        return await updateGift(formData, guestId);
     }
 }
 

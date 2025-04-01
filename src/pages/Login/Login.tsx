@@ -77,7 +77,7 @@ const Login = () => {
                                         label="Telefone"
                                         name="phone"
                                         type="text"
-                                        phone
+                                        mask="phone"
                                         errors={errors.phone}
                                         touched={touched.phone}
                                         placeholder="(xx) x xxxx-xxxx"

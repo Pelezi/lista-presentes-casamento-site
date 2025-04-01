@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Field, ErrorMessage, useFormikContext } from "formik";
 import InputMask from "react-input-mask";
 
@@ -17,29 +17,59 @@ export interface InputProps {
     hiddenLabel?: boolean;
     readonly?: boolean;
     placeholder?: string;
-    phone?: boolean;
+    mask?: "phone" | "BRL";
 };
 
-const Input: React.FC<InputProps> = ({ label, name, type = "text", as, errors, touched, children, className, hidden, readonly, hiddenLabel, placeholder, phone }) => {
-    const { isSubmitting } = useFormikContext();
+const Input: React.FC<InputProps> = ({ label, name, type = "text", as, errors, touched, children, className, hidden, readonly, hiddenLabel, placeholder, mask }) => {
+    const { isSubmitting, setFieldValue } = useFormikContext();
+    const [value, setValue] = useState("");
+
+    // Define the mask based on the type
+    const inputMask = mask === "phone" 
+        ? "(99) 9 9999-9999" 
+        : undefined;
+
+    // Handle right-to-left filling for BRL
+    const handleMoneyChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const rawValue = e.target.value.replace(/\D/g, ""); // Remove non-numeric characters
+        const formattedValue = new Intl.NumberFormat("pt-BR", {
+            style: "currency",
+            currency: "BRL",
+        }).format(parseFloat(rawValue) / 100); // Format as BRL currency
+        setValue(formattedValue);
+        setFieldValue(name, formattedValue); // Update Formik field value
+    };
 
     return (
         <fieldset className={`${styles.formGroup} ${hidden && styles.hidden}`}>
             <label htmlFor={name} className={`${styles.label} ${hiddenLabel && styles.hidden}`}>
                 {label}:
             </label>
-            <Field
-                name={name}
-                type={type}
-                as={phone ? InputMask : as ? as : undefined}
-                mask={phone ? "(99) 9 9999-9999" : undefined}
-                readOnly={readonly || isSubmitting}
-                className={`${className ? className : styles.input} ${touched && errors && styles.error}`}
-                placeholder={placeholder}
-                disabled={isSubmitting}
-            >
-                {children}
-            </Field>
+            {mask === "BRL" ? (
+                <input
+                    name={name}
+                    type="text"
+                    value={value}
+                    onChange={handleMoneyChange}
+                    readOnly={readonly || isSubmitting}
+                    className={`${className ? className : styles.input} ${touched && errors && styles.error}`}
+                    placeholder={placeholder}
+                    disabled={isSubmitting}
+                />
+            ) : (
+                <Field
+                    name={name}
+                    type={type}
+                    as={mask ? InputMask : as ? as : undefined}
+                    mask={inputMask}
+                    readOnly={readonly || isSubmitting}
+                    className={`${className ? className : styles.input} ${touched && errors && styles.error}`}
+                    placeholder={placeholder}
+                    disabled={isSubmitting}
+                >
+                    {children}
+                </Field>
+            )}
             <ErrorMessage name={name} component="div" className={styles.errorMsg} />
         </fieldset>
     );

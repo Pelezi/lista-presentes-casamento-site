@@ -11,7 +11,6 @@ import { Gift, createOrUpdateGift } from "../../../services/giftService";
 import styles from "./ManipularGift.module.css";
 import Cropper from "react-easy-crop";
 import getCroppedImg from "../../../utils/cropImage";
-import Textarea from "../../../components/forms/Textarea";
 import { useAuth } from "../../../contexts/AuthContext";
 
 const ManipularGift: React.FC = () => {
@@ -30,28 +29,15 @@ const ManipularGift: React.FC = () => {
     const initialValues: Gift = {
         id: "",
         name: "",
-        photoUrl: "",
-        quantity: 0,
-        description: "",
+        value: "",
+        mpcode: "",
     };
 
     const validationSchema = Yup.object().shape({
         id: Yup.string(),
         name: Yup.string().required("Campo obrigatório"),
-        photoUrl: Yup.string(),
-        quantity: Yup.number().required("Campo obrigatório").min(1, "Quantidade deve ser pelo menos 1"),
-        description: Yup.string(),
-        guests: Yup.array().of(
-            Yup.object().shape({
-                count: Yup.number().required(),
-                guest: Yup.object().shape({
-                    id: Yup.string().required(),
-                    name: Yup.string().required(),
-                    phone: Yup.string().required(),
-                }).required(),
-            })
-        ),
-        count: Yup.number(),
+        value: Yup.string().required("Campo obrigatório"),
+        mpcode: Yup.string(),
     });
 
     const [selectedImage, setSelectedImage] = useState<File | null>(null);
@@ -60,6 +46,7 @@ const ManipularGift: React.FC = () => {
     const [zoom, setZoom] = useState(1);
     const [croppedAreaPixels, setCroppedAreaPixels] = useState<Area | null>(null);
     const [croppedImage, setCroppedImage] = useState<string | null>(null);
+    const [croppedImageFile, setCroppedImageFile] = useState<File | null>(null);
 
     const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const file = event.target.files?.[0];
@@ -75,10 +62,31 @@ const ManipularGift: React.FC = () => {
 
     const handleCropConfirm = async () => {
         if (selectedImage && croppedAreaPixels) {
-            const croppedImageBlob = await getCroppedImg(URL.createObjectURL(selectedImage), croppedAreaPixels);
-            const croppedImageUrl = URL.createObjectURL(croppedImageBlob);
-            setCroppedImage(croppedImageUrl);
-            setImagePreview(null);
+            const image = new Image();
+            image.src = URL.createObjectURL(selectedImage);
+
+            image.onload = async () => {
+                const scaleX = image.naturalWidth / 100;
+                const scaleY = image.naturalHeight / 100;
+
+                const normalizedCroppedAreaPixels = {
+                    x: croppedAreaPixels.x * scaleX,
+                    y: croppedAreaPixels.y * scaleY,
+                    width: croppedAreaPixels.width * scaleX,
+                    height: croppedAreaPixels.height * scaleY,
+                };
+
+                console.log("Normalized Cropped Area Pixels:", normalizedCroppedAreaPixels);
+
+                const croppedImageBlob = await getCroppedImg(
+                    URL.createObjectURL(selectedImage),
+                    normalizedCroppedAreaPixels
+                );
+                const croppedImageUrl = URL.createObjectURL(croppedImageBlob);
+                setCroppedImage(croppedImageUrl);
+                setCroppedImageFile(croppedImageBlob as File);
+                setImagePreview(null);
+            };
         }
     };
 
@@ -115,15 +123,18 @@ const ManipularGift: React.FC = () => {
 
     const onSubmit = async (values: Gift, { resetForm }: { resetForm: () => void }) => {
         try {
-            const imageUrl = await handleImageUpload();
-            console.log("imageUrl", imageUrl);
-            const { guests, count, ...filteredValues } = values;
-            if (imageUrl) {
-                filteredValues.photoUrl = imageUrl;
-            } else {
-                delete filteredValues.photoUrl;
+            const { ...filteredValues } = values;
+            const formData = new FormData();
+            formData.append("id", filteredValues.id);
+            formData.append("name", filteredValues.name);
+            formData.append("value", filteredValues.value);
+            if (filteredValues.mpcode) {
+                formData.append("mpcode", filteredValues.mpcode);
             }
-            await createOrUpdateGift(filteredValues, guest.id);
+            if (croppedImageFile) {
+                formData.append("photo", croppedImageFile as Blob);
+            }
+            await createOrUpdateGift(formData, guest.id);
             resetForm();
             navigate("/admin");
             alert("Presente salvo com sucesso!");
@@ -150,26 +161,19 @@ const ManipularGift: React.FC = () => {
                         touched={touched.name}
                     />
                     <Input
-                        label="PhotoUrl"
-                        name="photoUrl"
-                        hidden
-                        errors={errors.photoUrl}
-                        touched={touched.photoUrl}
+                        label="Valor"
+                        name="value"
+                        mask="BRL"
+                        placeholder="R$ 0,00"
+                        errors={errors.value}
+                        touched={touched.value}
                     />
                     <Input
-                        label="Quantidade"
-                        name="quantity"
-                        type="number"
-                        errors={errors.quantity}
-                        touched={touched.quantity}
+                        label="Código do Mercado Pago"
+                        name="mpcode"
+                        errors={errors.mpcode}
+                        touched={touched.mpcode}
                     />
-                    <Textarea
-                        label="Descrição"
-                        name="description"
-                        errors={errors.description}
-                        touched={touched.description}
-                    />
-
                     <fieldset className={styles.formGroup}>
                         <label htmlFor="Foto" className={styles.label}>
                             Foto:
@@ -187,7 +191,7 @@ const ManipularGift: React.FC = () => {
                                         image={imagePreview}
                                         crop={crop}
                                         zoom={zoom}
-                                        aspect={4 / 3}
+                                        aspect={1 / 1}
                                         onCropChange={setCrop}
                                         onZoomChange={setZoom}
                                         onCropComplete={onCropComplete}

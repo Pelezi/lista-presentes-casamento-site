@@ -14,14 +14,12 @@ interface InfoboxProps {
 const InfoBoxAdminView: React.FC<InfoboxProps> = ({ gift, fetchGifts }) => {
     const navigate = useNavigate();
     const { guest } = useAuth();
-    
-    const [availableQuantity, setAvailableQuantity] = useState(0);
+
     const [giftInfo, setGiftInfo] = useState<Gift>();
 
     const fetchGiftData = async () => {
         const info = await getGiftsById(gift.id);
         setGiftInfo(info);
-        setAvailableQuantity(gift.quantity - (gift.count ?? 0));
     };
 
     useEffect(() => {
@@ -33,20 +31,13 @@ const InfoBoxAdminView: React.FC<InfoboxProps> = ({ gift, fetchGifts }) => {
     }
 
     const handleDelete = async (gift: Gift) => {
-        if (gift.count && gift.count > 0) {
-            const confirmDelete = window.confirm("Este presente tem convidados associados. Tem certeza de que deseja apagar?");
-            if (!confirmDelete) {
-                return;
-            }
-        } else {
-            const confirmDelete = window.confirm("Tem certeza de que deseja apagar este presente?");
-            if (!confirmDelete) {
-                return;
-            }
+        const confirmDelete = window.confirm("Tem certeza de que deseja apagar este presente?");
+        if (!confirmDelete) {
+            return;
         }
         try {
             await deleteGift(gift.id, guest?.id);
-            if (fetchGifts) fetchGifts(); 
+            if (fetchGifts) fetchGifts();
             alert("Presente removido com sucesso!");
         } catch (error) {
             console.log("Erro ao remover gift", error);
@@ -57,14 +48,9 @@ const InfoBoxAdminView: React.FC<InfoboxProps> = ({ gift, fetchGifts }) => {
     return (
         <div className={styles.card}>
             <div className={styles.cardBody}>
-                <img src={gift.photoUrl} className={styles.cardImage} alt={gift.name} /> {/* Added fallback for photoUrl */}
+                <img src={`https://d2j9qme73f0lxe.cloudfront.net/${gift.fileName}`} className={styles.cardImage} alt={gift.name} /> {/* Added fallback for photoUrl */}
                 <h2 className={styles.cardTitle}>{gift.name}</h2>
-                <p className={styles.cardDescription}>{gift.description}</p>
-                <p className={styles.cardQuantity}>Quantidade Disponível: {availableQuantity}/{gift.quantity}</p>
-                {giftInfo?.guests?.map((guest) => (
-                    <p className={styles.cardDescription} key={guest.guest.id}>{guest.guest.name}: {guest.count}</p>
-                ))
-                }
+                <p className={styles.cardDescription}>{gift.value}</p>
             </div>
             <div>
                 <Button onClick={() => handleEdit(gift)}>Editar presente</Button>

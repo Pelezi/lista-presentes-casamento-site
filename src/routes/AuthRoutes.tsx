@@ -24,9 +24,9 @@ const AuthRoutes: React.FC = () => {
         return <p>Carregando...</p>
     }
 
-    // if (!authenticated) {
-    //     return <Navigate to="/login" />
-    // }
+    if (!authenticated) {
+        return <Navigate to="/login" />
+    }
 
 
     return (
