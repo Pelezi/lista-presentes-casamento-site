@@ -13,7 +13,6 @@ interface InfoboxProps {
 
 const InfoBox: React.FC<InfoboxProps> = ({ gift, onPixSelect, guest }) => {
     const [showPaymentOptions, setShowPaymentOptions] = useState(false);
-    const [selectedPayment, setSelectedPayment] = useState<string | null>(null);
     const navigate = useNavigate();
 
     const loadMercadoPago = (preferenceId?: string) => {
@@ -28,13 +27,13 @@ const InfoBox: React.FC<InfoboxProps> = ({ gift, onPixSelect, guest }) => {
     };
 
     const handlePixSelection = () => {
-        setSelectedPayment("pix");
         onPixSelect(gift);
+        setShowPaymentOptions(false);
     };
 
     const handleCreditOrBoletoSelection = () => {
-        setSelectedPayment("creditOrBoleto");
         loadMercadoPago(gift.mpcode);
+        setShowPaymentOptions(false);
     };
 
     return (
@@ -48,7 +47,7 @@ const InfoBox: React.FC<InfoboxProps> = ({ gift, onPixSelect, guest }) => {
                 {!showPaymentOptions && (
                     <Button onClick={() => setShowPaymentOptions(true)}>Escolher presente</Button>
                 )}
-                {showPaymentOptions && !selectedPayment && (
+                {showPaymentOptions && (
                     <>
                         <Button onClick={handlePixSelection}>Pix</Button>
                         <Button onClick={handleCreditOrBoletoSelection}>Cartão de Crédito ou Boleto</Button>
