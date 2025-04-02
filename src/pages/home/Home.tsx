@@ -112,7 +112,7 @@ const Home = () => {
     const closePixModal = () => {
         setShowPixModal(false);
         setSelectedGift(null);
-        navigate("/thank-you");
+        navigate("/thankyou");
     };
 
     const handleCopyQrCode = () => {
@@ -206,7 +206,7 @@ const Home = () => {
                     <button className={styles.dismissButton} onClick={() => handleDismissClick(5)}>Entendi</button>
                 </div>
             )}
-            <Title className={styles.title}>Bem-vinda a minha Lista de Presentes</Title>
+            <Title className={styles.title}>Bem-vindo a minha Lista de Presentes</Title>
             <div className={styles.section}>
                 {gifts.map((gift) => (
                     <InfoBox

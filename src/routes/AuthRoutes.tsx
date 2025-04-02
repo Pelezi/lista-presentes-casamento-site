@@ -17,6 +17,8 @@ import ManipularGift from "../pages/Gifts/ManipularGift";
 
 import Bio from "../pages/Bio";
 
+import ThankYou from "../pages/ThankYou";
+
 const AuthRoutes: React.FC = () => {
     const { authenticated, isLoading } = useAuth();
 
@@ -43,6 +45,8 @@ const AuthRoutes: React.FC = () => {
                 <Route path="/admin" element={<Admin />} />
 
                 <Route path="/bio" element={<Bio />} />
+
+                <Route path="/thankyou" element={<ThankYou />} />
 
             </Routes>
         </Layout>
