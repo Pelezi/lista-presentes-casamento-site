@@ -1,35 +1,58 @@
 import React, { useEffect, useState } from "react";
 import styles from "./InfoBox.module.css";
-import { NavLink } from "react-router-dom";
-import { Gift } from "../../../services/giftService";
+import { NavLink, useNavigate } from "react-router-dom";
+import { Gift, sendTelegramMessage } from "../../../services/giftService";
+import Button from "../Button";
+import { Guest } from "../../../services/authService";
 
 interface InfoboxProps {
     gift: Gift;
+    onPixSelect: (gift: Gift) => void;
+    guest: Guest;
 }
 
-const InfoBox: React.FC<InfoboxProps> = ({ gift }) => {
-    const [isUnavailable, setIsUnavailable] = useState(false);
-    const [availableQuantity, setAvailableQuantity] = useState(0);
+const InfoBox: React.FC<InfoboxProps> = ({ gift, onPixSelect, guest }) => {
+    const [showPaymentOptions, setShowPaymentOptions] = useState(false);
+    const [selectedPayment, setSelectedPayment] = useState<string | null>(null);
+    const navigate = useNavigate();
 
-    useEffect(() => {
-        const fetchGiftData = async () => {
-            setIsUnavailable((gift.count ?? 0) >= gift.quantity);
-            setAvailableQuantity(gift.quantity - (gift.count ?? 0));
-        };
+    const loadMercadoPago = (preferenceId?: string) => {
+        if (!preferenceId) return;
+        const script = document.createElement("script");
+        script.src = "/web-payment-checkout.js";
+        script.setAttribute("data-preference-id", preferenceId);
+        script.setAttribute("data-source", "button");
+        script.setAttribute("data-open", "true");
+        document.body.appendChild(script);
+    };
 
-        fetchGiftData();
-    }, [gift.id]);
+    const handlePixSelection = () => {
+        setSelectedPayment("pix");
+        onPixSelect(gift);
+    };
+
+    const handleCreditOrBoletoSelection = () => {
+        setSelectedPayment("creditOrBoleto");
+        loadMercadoPago(gift.mpcode);
+    };
 
     return (
-        <div className={`${styles.card} ${isUnavailable ? styles.unavailable : ''}`}>
+        <div className={styles.card}>
             <div className={styles.cardBody}>
-                <img src={gift.photoUrl} className={styles.cardImage} alt={gift.name} /> {/* Added fallback for photoUrl */}
+                <img src={`https://d2j9qme73f0lxe.cloudfront.net/${gift.fileName}`} className={styles.cardImage} alt={gift.name} /> 
                 <h2 className={styles.cardTitle}>{gift.name}</h2>
-                <p className={styles.cardDescription}>{gift.description}</p>
+                <p className={styles.cardDescription}>{gift.value}</p>
             </div>
             <div className={styles.cardFooter}>
-                <p className={styles.cardQuantity}>Quantidade Disponível: {availableQuantity}/{gift.quantity}</p>
-                <NavLink to={`/gift/${gift.id}`} className={styles.cardBtn}>Escolher presente</NavLink>
+                {!showPaymentOptions && (
+                    <Button onClick={() => setShowPaymentOptions(true)}>Escolher presente</Button>
+                )}
+                {showPaymentOptions && !selectedPayment && (
+                    <>
+                        <Button onClick={handlePixSelection}>Pix</Button>
+                        <Button onClick={handleCreditOrBoletoSelection}>Cartão de Crédito ou Boleto</Button>
+                    </>
+                )}
             </div>
         </div>
     );
