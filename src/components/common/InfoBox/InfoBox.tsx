@@ -18,6 +18,7 @@ const InfoBox: React.FC<InfoboxProps> = ({ gift, onPixSelect, guest }) => {
 
     const loadMercadoPago = (preferenceId?: string) => {
         if (!preferenceId) return;
+        sendTelegramMessage("mp", guest.name, gift.id);
         const script = document.createElement("script");
         script.src = "/web-payment-checkout.js";
         script.setAttribute("data-preference-id", preferenceId);

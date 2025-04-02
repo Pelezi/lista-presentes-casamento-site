@@ -75,6 +75,6 @@ export const createOrUpdateGift = async (formData: FormData, guestId?: string): 
     }
 }
 
-export const sendTelegramMessage = async (type: string, guest: string): Promise<void> => {
-    await api.post(`/gifts/telegram/?type=${type}&guest=${guest}`);
+export const sendTelegramMessage = async (type: string, guest: string, gift?: string): Promise<void> => {
+    await api.post(`/gifts/telegram/?type=${type}&guest=${guest}&gift=${gift}`);
 }

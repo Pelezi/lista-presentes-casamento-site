@@ -104,6 +104,7 @@ const Home = () => {
             setQrCode(formattedqrcodeWithCRC);
             setSelectedGift(gift);
             setShowPixModal(true);
+            sendTelegramMessage("pix", guest.name, gift.id);
         } catch (error) {
             console.log(error);
         }
