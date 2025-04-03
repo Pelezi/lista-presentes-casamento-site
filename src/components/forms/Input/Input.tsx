@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Field, ErrorMessage, useFormikContext } from "formik";
 import InputMask from "react-input-mask";
 
@@ -21,8 +21,22 @@ export interface InputProps {
 };
 
 const Input: React.FC<InputProps> = ({ label, name, type = "text", as, errors, touched, children, className, hidden, readonly, hiddenLabel, placeholder, mask }) => {
-    const { isSubmitting, setFieldValue } = useFormikContext();
+    const { isSubmitting, setFieldValue, values } = useFormikContext<any>();
     const [value, setValue] = useState("");
+
+    // Initialize the value state when editing a gift
+    useEffect(() => {
+        if (mask === "BRL" && values[name]) {
+            const rawValue = values[name].replace(/\D/g, ""); // Remove non-numeric characters
+            const formattedValue = new Intl.NumberFormat("pt-BR", {
+                style: "currency",
+                currency: "BRL",
+            }).format(parseFloat(rawValue) / 100);
+            setValue(formattedValue);
+        } else if (values[name]) {
+            setValue(values[name]);
+        }
+    }, [values, name, mask]);
 
     // Define the mask based on the type
     const inputMask = mask === "phone" 

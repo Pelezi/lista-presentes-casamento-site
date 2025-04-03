@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import styles from "./InfoBox.module.css";
-import { NavLink, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { Gift, sendTelegramMessage } from "../../../services/giftService";
 import Button from "../Button";
 import { Guest } from "../../../services/authService";
@@ -32,6 +32,7 @@ const InfoBox: React.FC<InfoboxProps> = ({ gift, onPixSelect, guest }) => {
     };
 
     const handleCreditOrBoletoSelection = () => {
+        if (!gift.mpcode) return;
         loadMercadoPago(gift.mpcode);
         setShowPaymentOptions(false);
     };

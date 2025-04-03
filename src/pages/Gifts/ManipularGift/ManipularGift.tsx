@@ -31,14 +31,15 @@ const ManipularGift: React.FC = () => {
         name: "",
         value: "",
         mpcode: "",
+        fileName: ""
     };
 
     const validationSchema = Yup.object().shape({
         id: Yup.string(),
         name: Yup.string().required("Campo obrigatório"),
         value: Yup.string().required("Campo obrigatório"),
-        mpcode: Yup.string(),
-        fileName: Yup.string(),
+        mpcode: Yup.string().nullable(),
+        fileName: Yup.string().nullable(),
     });
 
     const [selectedImage, setSelectedImage] = useState<File | null>(null);
@@ -91,47 +92,15 @@ const ManipularGift: React.FC = () => {
         }
     };
 
-    const handleImageUpload = async (): Promise<string | null> => {
-        if (!croppedImage) return null;
-
-        const response = await fetch(croppedImage);
-        const blob = await response.blob();
-
-        const formData = new FormData();
-        formData.append("file", blob);
-        formData.append("upload_preset", import.meta.env.VITE_CLOUDINARY_UPLOAD_PRESET);
-
-        try {
-            const response = await fetch(`https://api.cloudinary.com/v1_1/${import.meta.env.VITE_CLOUDINARY_CLOUD_NAME}/image/upload`, {
-                method: "POST",
-                body: formData,
-            });
-            const data = await response.json();
-            if (data.secure_url) {
-                return data.secure_url;
-            } else {
-                throw new Error("Erro ao obter URL da imagem");
-            }
-        } catch (error) {
-            console.error("Erro ao enviar imagem", error);
-            alert("Erro ao enviar imagem. Tente novamente.");
-            return null;
-        } finally {
-            setSelectedImage(null);
-            setImagePreview(null);
-        }
-    };
-
     const onSubmit = async (values: Gift, { resetForm }: { resetForm: () => void }) => {
         try {
+            console.log("Valores do formulário:", values);
             const { ...filteredValues } = values;
             const formData = new FormData();
             formData.append("id", filteredValues.id);
             formData.append("name", filteredValues.name);
             formData.append("value", filteredValues.value);
-            if (filteredValues.mpcode) {
-                formData.append("mpcode", filteredValues.mpcode);
-            }
+            formData.append("mpcode", filteredValues.mpcode || "");
             if (croppedImageFile) {
                 formData.append("photo", croppedImageFile as Blob);
             }
@@ -178,7 +147,7 @@ const ManipularGift: React.FC = () => {
                     <Input
                         label="nome do arquivo"
                         name="fileName"
-                        hidden
+                        // hidden
                         errors={errors.fileName}
                         touched={touched.fileName}
                     />

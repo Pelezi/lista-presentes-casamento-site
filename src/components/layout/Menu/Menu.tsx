@@ -6,7 +6,7 @@ import styles from "./Menu.module.css";
 
 import { useAuth } from "../../../contexts/AuthContext";
 import { FaGift, FaGears } from "react-icons/fa6";
-import { MdOutlineShoppingCart, MdLogout } from "react-icons/md";
+import { MdLogout } from "react-icons/md";
 
 
 const Menu: React.FC = ({ }) => {
@@ -24,15 +24,6 @@ const Menu: React.FC = ({ }) => {
                 onClick={() => { { } }}
             >
                 <FaGift className={styles.icon} />
-            </NavLink>
-            <NavLink
-                className={({ isActive }) =>
-                    isActive ? `${styles.link} ${styles.activeLink}` : styles.link
-                }
-                to="/meus-presentes"
-                onClick={() => { }}
-            >
-                <MdOutlineShoppingCart className={styles.icon} />
             </NavLink>
 
             {(guest?.phone === "81998625899" || guest?.phone === "81997250606") && (

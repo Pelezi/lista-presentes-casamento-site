@@ -9,10 +9,7 @@ import { useAuth } from "../contexts/AuthContext";
 import Home from '../pages/home';
 import Admin from '../pages/Admin';
 
-import MeusPresentes from '../pages/guests/MeusPresentes';
 
-import DetalhesGiftGuest from "../pages/Gifts/DetalhesGiftGuest";
-import RemoveGiftGuest from "../pages/Gifts/RemoveGiftGuest";
 import ManipularGift from "../pages/Gifts/ManipularGift";
 
 import Bio from "../pages/Bio";
@@ -36,11 +33,8 @@ const AuthRoutes: React.FC = () => {
             <Routes>
                 <Route path="/" element={<Home />} />
 
-                <Route path="/gift/:id" element={<DetalhesGiftGuest />} />
-                <Route path="/gift/:id/remove" element={<RemoveGiftGuest />} />
                 <Route path="/gifts/cadastrar" element={<ManipularGift />} />
                 <Route path="/gifts/editar" element={<ManipularGift />} />
-                <Route path="/meus-presentes" element={<MeusPresentes />} />
 
                 <Route path="/admin" element={<Admin />} />
 

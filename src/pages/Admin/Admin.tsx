@@ -29,7 +29,7 @@ const Home = () => {
         if (isFiltered) {
             setFilteredGifts(gifts);
         } else {
-            setFilteredGifts(gifts.filter(gift => gift.mpcode));
+            setFilteredGifts(gifts.filter(gift => !gift.mpcode));
         }
         setIsFiltered(!isFiltered);
     }
