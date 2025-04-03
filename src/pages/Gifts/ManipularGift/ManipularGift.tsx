@@ -147,7 +147,7 @@ const ManipularGift: React.FC = () => {
                     <Input
                         label="nome do arquivo"
                         name="fileName"
-                        // hidden
+                        hidden
                         errors={errors.fileName}
                         touched={touched.fileName}
                     />
