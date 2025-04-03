@@ -38,7 +38,7 @@ const Home = () => {
             const response = await getGifts();
             setGifts(response);
         } catch (error) {
-            console.log(error);
+            throw new Error("Error fetching gifts: " + error);
         }
     }
 
@@ -69,7 +69,7 @@ const Home = () => {
                 navigate("/bio");
             }, 400);
         } catch (error) {
-            console.log(error);
+            throw new Error("Error sending Telegram message: " + error);
         }
     };
 
@@ -94,7 +94,7 @@ const Home = () => {
 
     const handlePixSelect = (gift: Gift) => {
         try {
-            const value = gift.value.replace("R$ ", "").replace(".", "").replace(",", "");
+            const value = gift.value.replace("R$ ", "").replace(".", "").replace(",", ".");
             const valueLength = value.length.toString().padStart(2, '0'); // Ensure length is always two characters
             const message = `Presente de ${guest.name} ${gift.name}`;
             const maxLength = 40;
@@ -102,13 +102,12 @@ const Home = () => {
             const formattedqrcode = `00020126${47 + truncatedMessage.length}0014br.gov.bcb.pix0121abcsandro@hotmail.com02${truncatedMessage.length}${truncatedMessage}52040000530398654${valueLength}${value}5802BR5924Alessandro Cardoso da Co6008Brasilia62230519daqr6688136475516746304`
             const crc = crc16CCITTFalse(formattedqrcode);
             const formattedqrcodeWithCRC = formattedqrcode + crc;
-            console.log("Formatted QR Code:", formattedqrcodeWithCRC);
             setQrCode(formattedqrcodeWithCRC);
             setSelectedGift(gift);
             setShowPixModal(true);
             sendTelegramMessage("pix", guest.name, gift.id);
         } catch (error) {
-            console.log(error);
+            throw new Error("Error generating Pix QR code: " + error);
         }
     };
 

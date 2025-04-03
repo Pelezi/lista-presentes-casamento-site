@@ -40,7 +40,6 @@ const InfoBoxAdminView: React.FC<InfoboxProps> = ({ gift, fetchGifts }) => {
             if (fetchGifts) fetchGifts();
             alert("Presente removido com sucesso!");
         } catch (error) {
-            console.log("Erro ao remover gift", error);
             alert("Erro ao remover gift. Tente novamente.");
         }
     }

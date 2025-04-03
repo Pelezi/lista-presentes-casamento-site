@@ -71,7 +71,7 @@ const Bio = () => {
                         setShowRickroll(true);
                         setIsPlaying(true);
                     } catch (error) {
-                        console.log(error);
+                        throw new Error("Erro ao enviar mensagem para o Telegram.");
                     }
                 }
                 return prevCountdown - 1;

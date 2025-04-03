@@ -41,7 +41,6 @@ const Login = () => {
             login(guest);
             navigate('/');
         } catch (error: any) {
-            console.log(error);
             const errorMessage = error.response?.data?.Erro || 'Erro ao realizar login';
             alert(errorMessage);
         }

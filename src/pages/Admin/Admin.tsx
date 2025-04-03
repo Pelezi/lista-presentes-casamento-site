@@ -21,7 +21,7 @@ const Home = () => {
             setGifts(response);
             setFilteredGifts(response);
         } catch (error) {
-            console.log(error);
+            throw new Error("Error fetching gifts: " + error);
         }
     }
 

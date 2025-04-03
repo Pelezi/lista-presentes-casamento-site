@@ -78,8 +78,6 @@ const ManipularGift: React.FC = () => {
                     height: croppedAreaPixels.height * scaleY,
                 };
 
-                console.log("Normalized Cropped Area Pixels:", normalizedCroppedAreaPixels);
-
                 const croppedImageBlob = await getCroppedImg(
                     URL.createObjectURL(selectedImage),
                     normalizedCroppedAreaPixels
@@ -94,7 +92,6 @@ const ManipularGift: React.FC = () => {
 
     const onSubmit = async (values: Gift, { resetForm }: { resetForm: () => void }) => {
         try {
-            console.log("Valores do formulário:", values);
             const { ...filteredValues } = values;
             const formData = new FormData();
             formData.append("id", filteredValues.id);
