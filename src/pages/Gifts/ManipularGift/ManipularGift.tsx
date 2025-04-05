@@ -31,7 +31,7 @@ const ManipularGift: React.FC = () => {
     const initialValues: Gift = {
         id: "",
         name: "",
-        value: "",
+        value: 0,
         mpcode: "",
         fileName: ""
     };
@@ -39,7 +39,7 @@ const ManipularGift: React.FC = () => {
     const validationSchema = Yup.object().shape({
         id: Yup.string(),
         name: Yup.string().required("Campo obrigatório"),
-        value: Yup.string().required("Campo obrigatório"),
+        value: Yup.number().required("Campo obrigatório"),
         mpcode: Yup.string().nullable(),
         fileName: Yup.string().nullable(),
     });
@@ -98,7 +98,7 @@ const ManipularGift: React.FC = () => {
             const formData = new FormData();
             formData.append("id", filteredValues.id);
             formData.append("name", filteredValues.name);
-            formData.append("value", filteredValues.value);
+            formData.append("value", filteredValues.value.toString());
             formData.append("mpcode", filteredValues.mpcode || "");
             if (croppedImageFile) {
                 formData.append("photo", croppedImageFile as Blob);

@@ -12,8 +12,8 @@ interface InfoboxProps {
 }
 
 
-const formatCurrency = (value: string) => {
-    const [integerPart, decimalPart] = value.split(".");
+const formatCurrency = (value: number) => {
+    const [integerPart, decimalPart] = value.toString().split(".");
     const formattedInteger = integerPart.replace(/\B(?=(\d{3})+(?!\d))/g, ".");
     return `${formattedInteger},${decimalPart || "00"}`;
 };
