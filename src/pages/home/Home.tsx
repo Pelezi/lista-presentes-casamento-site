@@ -164,6 +164,7 @@ const Home = () => {
                         <QRCodeSVG
                             value={QrCode}
                             size={256}
+                            marginSize={4}
                         />
                         <Button onClick={handleCopyQrCode}>
                             Copiar código Pix
