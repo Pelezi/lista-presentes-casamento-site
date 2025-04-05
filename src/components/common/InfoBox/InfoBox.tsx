@@ -39,7 +39,7 @@ const InfoBox: React.FC<InfoboxProps> = ({ gift, onPixSelect, guest }) => {
 
     const handleCreditOrBoletoSelection = () => {
         if (gift.value <= 0) {
-            // sendTelegramMessage("mp", guest.name, gift.id);
+            sendTelegramMessage("mp", guest.name, gift.id);
             setShowPaymentOptions(false);
             window.open("https://link.mercadopago.com.br/pelezitech", "_blank");
             navigate("/thankyou")
