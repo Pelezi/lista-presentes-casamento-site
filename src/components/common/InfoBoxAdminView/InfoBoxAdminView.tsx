@@ -11,6 +11,13 @@ interface InfoboxProps {
     fetchGifts?: () => void;
 }
 
+
+const formatCurrency = (value: string) => {
+    const [integerPart, decimalPart] = value.split(".");
+    const formattedInteger = integerPart.replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+    return `${formattedInteger},${decimalPart || "00"}`;
+};
+
 const InfoBoxAdminView: React.FC<InfoboxProps> = ({ gift, fetchGifts }) => {
     const navigate = useNavigate();
     const { guest } = useAuth();
@@ -49,7 +56,7 @@ const InfoBoxAdminView: React.FC<InfoboxProps> = ({ gift, fetchGifts }) => {
             <div className={styles.cardBody}>
                 <img src={`https://d2j9qme73f0lxe.cloudfront.net/${gift.fileName}`} className={styles.cardImage} alt={gift.name} /> {/* Added fallback for photoUrl */}
                 <h2 className={styles.cardTitle}>{gift.name}</h2>
-                <p className={styles.cardDescription}>{gift.value}</p>
+                <p className={styles.cardDescription}>R$ {formatCurrency(gift.value)}</p>
             </div>
             <div>
                 <Button onClick={() => handleEdit(gift)}>Editar presente</Button>

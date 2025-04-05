@@ -11,6 +11,12 @@ interface InfoboxProps {
     guest: Guest;
 }
 
+const formatCurrency = (value: string) => {
+    const [integerPart, decimalPart] = value.split(".");
+    const formattedInteger = integerPart.replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+    return `${formattedInteger},${decimalPart || "00"}`;
+};
+
 const InfoBox: React.FC<InfoboxProps> = ({ gift, onPixSelect, guest }) => {
     const [showPaymentOptions, setShowPaymentOptions] = useState(false);
     const navigate = useNavigate();
@@ -42,7 +48,7 @@ const InfoBox: React.FC<InfoboxProps> = ({ gift, onPixSelect, guest }) => {
             <div className={styles.cardBody}>
                 <img src={`https://d2j9qme73f0lxe.cloudfront.net/${gift.fileName}`} className={styles.cardImage} alt={gift.name} /> 
                 <h2 className={styles.cardTitle}>{gift.name}</h2>
-                <p className={styles.cardDescription}>{gift.value}</p>
+                <p className={styles.cardDescription}>R$ {formatCurrency(gift.value)}</p>
             </div>
             <div className={styles.cardFooter}>
                 {!showPaymentOptions && (
