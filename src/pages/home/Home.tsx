@@ -94,7 +94,7 @@ const Home = () => {
 
     const handlePixSelect = (gift: Gift) => {
         try {
-            const value = gift.value.replace("R$ ", "").replace(".", "").replace(",", ".");
+            const value = gift.value.replace("R$ ", "").replace("R$ ", "").replace(".", "").replace(",", ".");
             const valueLength = value.length.toString().padStart(2, '0'); // Ensure length is always two characters
             const message = `Presente de ${guest.name} ${gift.name}`;
             const maxLength = 40;
