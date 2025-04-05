@@ -39,10 +39,18 @@ const ManipularGift: React.FC = () => {
     const validationSchema = Yup.object().shape({
         id: Yup.string(),
         name: Yup.string().required("Campo obrigatório"),
-        value: Yup.number().required("Campo obrigatório"),
+        value: Yup.number()
+          .transform((value, originalValue) => {
+            if (typeof originalValue === 'string') {
+              const numberString = originalValue.replace(/[^\d,]+/g, '').replace(',', '.');
+              return Number(numberString);
+            }
+            return value;
+          })
+          .required("Campo obrigatório"),
         mpcode: Yup.string().nullable(),
         fileName: Yup.string().nullable(),
-    });
+      });
 
     const [selectedImage, setSelectedImage] = useState<File | null>(null);
     const [imagePreview, setImagePreview] = useState<string | null>(null);
@@ -146,6 +154,7 @@ const ManipularGift: React.FC = () => {
                             label="Valor"
                             name="value"
                             mask="BRL"
+                            type="text"
                             placeholder="R$ 0,00"
                             errors={errors.value}
                             touched={touched.value}
