@@ -74,22 +74,22 @@ const Home = () => {
     };
 
     const crc16CCITTFalse = (input: string): string => {
-        let crc = 0xFFFF; 
-        const polynomial = 0x1021; 
-    
+        let crc = 0xFFFF;
+        const polynomial = 0x1021;
+
         for (let i = 0; i < input.length; i++) {
-            crc ^= input.charCodeAt(i) << 8; 
-            for (let j = 0; j < 8; j++) { 
-                if (crc & 0x8000) { 
+            crc ^= input.charCodeAt(i) << 8;
+            for (let j = 0; j < 8; j++) {
+                if (crc & 0x8000) {
                     crc = (crc << 1) ^ polynomial;
                 } else {
                     crc <<= 1;
                 }
-                crc &= 0xFFFF; 
+                crc &= 0xFFFF;
             }
         }
-    
-        return crc.toString(16).toUpperCase().padStart(4, '0'); 
+
+        return crc.toString(16).toUpperCase().padStart(4, '0');
     }
 
     const replaceAccents = (str: string): string => {
@@ -137,19 +137,26 @@ const Home = () => {
 
     const handlePixSelect = (gift: Gift) => {
         try {
-            const value = gift.value;
-            const valueLength = value.length.toString().padStart(2, '0'); // Ensure length is always two characters
-            const message = `Presente de ${guest.name} ${gift.name}`;
-            const sanitizedMessage = replaceAccents(message);
-            const maxLength = 40;
-            const truncatedMessage = sanitizedMessage.length > maxLength ? sanitizedMessage.substring(0, maxLength) : sanitizedMessage;
-            const formattedqrcode = `00020126${47 + truncatedMessage.length}0014br.gov.bcb.pix0121abcsandro@hotmail.com02${truncatedMessage.length}${truncatedMessage}52040000530398654${valueLength}${value}5802BR5924Alessandro Cardoso da Co6008Brasilia62230519daqr6688136475516746304`
-            const crc = crc16CCITTFalse(formattedqrcode);
-            const formattedqrcodeWithCRC = formattedqrcode + crc;
-            setQrCode(formattedqrcodeWithCRC);
-            setSelectedGift(gift);
-            setShowPixModal(true);
-            sendTelegramMessage("pix", guest.name, gift.id);
+            if (gift.value <= 0) {
+                setQrCode("00020126430014br.gov.bcb.pix0121abcsandro@hotmail.com5204000053039865802BR5924Alessandro Cardoso da Co6008Brasilia62230519daqr6688136473273566304123A");
+                setSelectedGift(gift);
+                setShowPixModal(true);
+                sendTelegramMessage("pix", guest.name, gift.id);
+            } else {
+                const value = gift.value;
+                const valueLength = value.toString().length.toString().padStart(2, '0'); // Ensure length is always two characters
+                const message = `Presente de ${guest.name} ${gift.name}`;
+                const sanitizedMessage = replaceAccents(message);
+                const maxLength = 40;
+                const truncatedMessage = sanitizedMessage.length > maxLength ? sanitizedMessage.substring(0, maxLength) : sanitizedMessage;
+                const formattedqrcode = `00020126${47 + truncatedMessage.length}0014br.gov.bcb.pix0121abcsandro@hotmail.com02${truncatedMessage.length}${truncatedMessage}52040000530398654${valueLength}${value}5802BR5924Alessandro Cardoso da Co6008Brasilia62230519daqr6688136475516746304`
+                const crc = crc16CCITTFalse(formattedqrcode);
+                const formattedqrcodeWithCRC = formattedqrcode + crc;
+                setQrCode(formattedqrcodeWithCRC);
+                setSelectedGift(gift);
+                setShowPixModal(true);
+                sendTelegramMessage("pix", guest.name, gift.id);
+            }
         } catch (error) {
             throw new Error("Error generating Pix QR code: " + error);
         }
@@ -173,8 +180,8 @@ const Home = () => {
         if (dialogueElement) {
             dialogueElement.classList.add(styles.fadeOut);
             setTimeout(() => {
-                        setShowDialogue1(false);
-                        dialogueElement.classList.remove(styles.fadeOut);
+                setShowDialogue1(false);
+                dialogueElement.classList.remove(styles.fadeOut);
             }, 500);
         }
     };

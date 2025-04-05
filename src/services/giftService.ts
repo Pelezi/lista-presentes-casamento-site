@@ -4,7 +4,7 @@ export interface Gift {
     id: string;
     name: string;
     fileName?: string | null;
-    value: string;
+    value: number;
     mpcode?: string | null;
 }
 
