@@ -149,7 +149,7 @@ const Home = () => {
             setQrCode(formattedqrcodeWithCRC);
             setSelectedGift(gift);
             setShowPixModal(true);
-            // sendTelegramMessage("pix", guest.name, gift.id);
+            sendTelegramMessage("pix", guest.name, gift.id);
         } catch (error) {
             throw new Error("Error generating Pix QR code: " + error);
         }
