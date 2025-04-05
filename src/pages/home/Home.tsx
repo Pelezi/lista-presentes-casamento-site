@@ -92,20 +92,64 @@ const Home = () => {
         return crc.toString(16).toUpperCase().padStart(4, '0'); 
     }
 
+    const replaceAccents = (str: string): string => {
+        const accentsMap: { [key: string]: string } = {
+            á: "a",
+            à: "a",
+            â: "a",
+            ã: "a",
+            é: "e",
+            è: "e",
+            ê: "e",
+            í: "i",
+            ì: "i",
+            î: "i",
+            ó: "o",
+            ò: "o",
+            ô: "o",
+            õ: "o",
+            ú: "u",
+            ù: "u",
+            û: "u",
+            ç: "c",
+            Á: "A",
+            À: "A",
+            Â: "A",
+            Ã: "A",
+            É: "E",
+            È: "E",
+            Ê: "E",
+            Í: "I",
+            Ì: "I",
+            Î: "I",
+            Ó: "O",
+            Ò: "O",
+            Ô: "O",
+            Õ: "O",
+            Ú: "U",
+            Ù: "U",
+            Û: "U",
+            Ç: "C",
+        };
+
+        return str.replace(/[áàâãéèêíìîóòôõúùûçÁÀÂÃÉÈÊÍÌÎÓÒÔÕÚÙÛÇ]/g, (match) => accentsMap[match] || match);
+    };
+
     const handlePixSelect = (gift: Gift) => {
         try {
-            const value = gift.value.replace("R$ ", "").replace("R$ ", "").replace(".", "").replace(",", ".");
+            const value = gift.value;
             const valueLength = value.length.toString().padStart(2, '0'); // Ensure length is always two characters
             const message = `Presente de ${guest.name} ${gift.name}`;
+            const sanitizedMessage = replaceAccents(message);
             const maxLength = 40;
-            const truncatedMessage = message.length > maxLength ? message.substring(0, maxLength) : message;
+            const truncatedMessage = sanitizedMessage.length > maxLength ? sanitizedMessage.substring(0, maxLength) : sanitizedMessage;
             const formattedqrcode = `00020126${47 + truncatedMessage.length}0014br.gov.bcb.pix0121abcsandro@hotmail.com02${truncatedMessage.length}${truncatedMessage}52040000530398654${valueLength}${value}5802BR5924Alessandro Cardoso da Co6008Brasilia62230519daqr6688136475516746304`
             const crc = crc16CCITTFalse(formattedqrcode);
             const formattedqrcodeWithCRC = formattedqrcode + crc;
             setQrCode(formattedqrcodeWithCRC);
             setSelectedGift(gift);
             setShowPixModal(true);
-            sendTelegramMessage("pix", guest.name, gift.id);
+            // sendTelegramMessage("pix", guest.name, gift.id);
         } catch (error) {
             throw new Error("Error generating Pix QR code: " + error);
         }
