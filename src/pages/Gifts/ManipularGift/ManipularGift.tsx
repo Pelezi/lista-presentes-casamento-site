@@ -12,6 +12,8 @@ import styles from "./ManipularGift.module.css";
 import Cropper from "react-easy-crop";
 import getCroppedImg from "../../../utils/cropImage";
 import { useAuth } from "../../../contexts/AuthContext";
+import { toast, Bounce, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const ManipularGift: React.FC = () => {
 
@@ -103,90 +105,104 @@ const ManipularGift: React.FC = () => {
             }
             await createOrUpdateGift(formData, guest.id);
             resetForm();
-            navigate("/admin");
-            alert("Presente salvo com sucesso!");
+            navigate("/admin", { state: { toastMessage: "Presente salvo com sucesso!" } });
         } catch (error) {
             console.error("Erro ao salvar presente", error);
-            alert("Erro ao salvar presente. Tente novamente." + error);
+            toast.error("Erro ao salvar presente. Tente novamente.");
         }
-    }
+    };
 
     return (
-        <Form
-            initialValues={gift || initialValues}
-            validationSchema={validationSchema}
-            onSubmit={onSubmit}
-        >
-            {({ errors, touched }) => (
-                <>
-                    {gift ? <Title>Editar Presente</Title> : <Title>Cadastrar Presente</Title>}
+        <>
+            <ToastContainer
+                position="top-right"
+                autoClose={5000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick={false}
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme="light"
+                transition={Bounce}
+            />
+            <Form
+                initialValues={gift || initialValues}
+                validationSchema={validationSchema}
+                onSubmit={onSubmit}
+            >
+                {({ errors, touched }) => (
+                    <>
+                        {gift ? <Title>Editar Presente</Title> : <Title>Cadastrar Presente</Title>}
 
-                    <Input
-                        label="Nome"
-                        name="name"
-                        errors={errors.name}
-                        touched={touched.name}
-                    />
-                    <Input
-                        label="Valor"
-                        name="value"
-                        mask="BRL"
-                        placeholder="R$ 0,00"
-                        errors={errors.value}
-                        touched={touched.value}
-                    />
-                    <Input
-                        label="Código do Mercado Pago"
-                        name="mpcode"
-                        errors={errors.mpcode}
-                        touched={touched.mpcode}
-                    />
-                    <Input
-                        label="nome do arquivo"
-                        name="fileName"
-                        hidden
-                        errors={errors.fileName}
-                        touched={touched.fileName}
-                    />
-                    <fieldset className={styles.formGroup}>
-                        <label htmlFor="Foto" className={styles.label}>
-                            Foto:
-                        </label>
-                        <input
-                            name="Foto"
-                            type="file"
-                            className={styles.input}
-                            onChange={handleImageChange}
+                        <Input
+                            label="Nome"
+                            name="name"
+                            errors={errors.name}
+                            touched={touched.name}
                         />
-                        {imagePreview && (
-                            <>
-                                <div className={styles.cropContainer}>
-                                    <Cropper
-                                        image={imagePreview}
-                                        crop={crop}
-                                        zoom={zoom}
-                                        aspect={1 / 1}
-                                        onCropChange={setCrop}
-                                        onZoomChange={setZoom}
-                                        onCropComplete={onCropComplete}
-                                    />
+                        <Input
+                            label="Valor"
+                            name="value"
+                            mask="BRL"
+                            placeholder="R$ 0,00"
+                            errors={errors.value}
+                            touched={touched.value}
+                        />
+                        <Input
+                            label="Código do Mercado Pago"
+                            name="mpcode"
+                            errors={errors.mpcode}
+                            touched={touched.mpcode}
+                        />
+                        <Input
+                            label="nome do arquivo"
+                            name="fileName"
+                            hidden
+                            errors={errors.fileName}
+                            touched={touched.fileName}
+                        />
+                        <fieldset className={styles.formGroup}>
+                            <label htmlFor="Foto" className={styles.label}>
+                                Foto:
+                            </label>
+                            <input
+                                name="Foto"
+                                type="file"
+                                className={styles.input}
+                                onChange={handleImageChange}
+                            />
+                            {imagePreview && (
+                                <>
+                                    <div className={styles.cropContainer}>
+                                        <Cropper
+                                            image={imagePreview}
+                                            crop={crop}
+                                            zoom={zoom}
+                                            aspect={1 / 1}
+                                            onCropChange={setCrop}
+                                            onZoomChange={setZoom}
+                                            onCropComplete={onCropComplete}
+                                        />
+                                        <br />
+                                    </div>
+                                    <Button green onClick={handleCropConfirm}>Confirmar Corte</Button>
+                                </>
+                            )}
+                            {croppedImage && (
+                                <div>
+                                    <img alt="Cropped" width={"250px"} src={croppedImage} />
                                     <br />
                                 </div>
-                                <Button green onClick={handleCropConfirm}>Confirmar Corte</Button>
-                            </>
-                        )}
-                        {croppedImage && (
-                            <div>
-                                <img alt="Cropped" width={"250px"} src={croppedImage} />
-                                <br />
-                            </div>
-                        )}
-                    </fieldset>
+                            )}
+                        </fieldset>
 
-                    <Button type="submit">Salvar</Button>
-                </>
-            )}
-        </Form>
+                        <Button type="submit">Salvar</Button>
+                    </>
+                )}
+            </Form>
+        </>
     );
 };
 

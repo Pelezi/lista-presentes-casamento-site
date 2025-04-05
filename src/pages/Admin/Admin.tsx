@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 import styles from "./Admin.module.css";
 
@@ -9,11 +9,15 @@ import { Gift, getGifts } from "../../services/giftService";
 
 import { FaFilter, FaFilterCircleXmark } from "react-icons/fa6";
 
+import { Bounce, toast, ToastContainer } from "react-toastify";
+
 const Home = () => {
     const [gifts, setGifts] = useState<Gift[]>([]);
     const [filteredGifts, setFilteredGifts] = useState<Gift[]>([]);
     const [isFiltered, setIsFiltered] = useState(false);
+
     const navigate = useNavigate();
+    const location = useLocation();
 
     const fetchGifts = async () => {
         try {
@@ -38,24 +42,59 @@ const Home = () => {
         fetchGifts();
     }, []);
 
+
+    useEffect(() => {
+        if (location.state?.toastMessage) {
+            toast.success(location.state.toastMessage, {
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: false,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+            });
+
+            // Clear the state to prevent duplicate toasts
+            window.history.replaceState({}, document.title);
+        }
+    }, [location.state]);
+
+
     return (
-        <main className={styles.container}>
-            <div className={styles.section}>
-                {filteredGifts.map((gift) => (
-                    <InfoBoxAdminView
-                        key={gift.id}
-                        gift={gift}
-                        fetchGifts={fetchGifts}
-                    />
-                ))}
-            </div>
-            <button className={styles.addButton} onClick={() => navigate("/gifts/cadastrar")}>
-                +
-            </button>
-            <button className={styles.filterButton} onClick={filterGifts}>
-                {isFiltered ? <FaFilterCircleXmark/> : <FaFilter/>}
-            </button>
-        </main>
+        <>
+            <ToastContainer
+                position="top-right"
+                autoClose={5000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick={false}
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme="light"
+                transition={Bounce}
+            />
+            <main className={styles.container}>
+                <div className={styles.section}>
+                    {filteredGifts.map((gift) => (
+                        <InfoBoxAdminView
+                            key={gift.id}
+                            gift={gift}
+                            fetchGifts={fetchGifts}
+                        />
+                    ))}
+                </div>
+                <button className={styles.addButton} onClick={() => navigate("/gifts/cadastrar")}>
+                    +
+                </button>
+                <button className={styles.filterButton} onClick={filterGifts}>
+                    {isFiltered ? <FaFilterCircleXmark /> : <FaFilter />}
+                </button>
+            </main>
+        </>
     )
 };
 
