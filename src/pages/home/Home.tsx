@@ -165,7 +165,9 @@ const Home = () => {
     const closePixModal = () => {
         setShowPixModal(false);
         setSelectedGift(null);
-        navigate("/thankyou");
+        if (selectedGift) {
+            navigate(`/thankyou?type=thankYouPix&giftId=${selectedGift.id}`);
+        }
     };
 
     const handleCopyQrCode = () => {

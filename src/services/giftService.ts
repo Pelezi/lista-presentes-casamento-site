@@ -51,16 +51,6 @@ export const deleteGift = async (id: string, guestId?: string ): Promise<Gift> =
     return response.data;
 }
 
-export const addGiftToGuest = async (giftId: string, guestId: string): Promise<Gift> => {
-    const response = await api.post<Gift>(`/gifts/${giftId}/guest/${guestId}`);
-    return response.data;
-}
-
-export const removeGiftFromGuest = async (giftId: string, guestId: string): Promise<Gift> => {
-    const response = await api.delete<Gift>(`/gifts/${giftId}/guest/${guestId}`);
-    return response.data;
-}
-
 export const createOrUpdateGift = async (formData: FormData, guestId?: string): Promise<Gift> => {
     if (!formData.get('id')) {
         return await createGift(formData, guestId);
@@ -69,6 +59,14 @@ export const createOrUpdateGift = async (formData: FormData, guestId?: string): 
     }
 }
 
-export const sendTelegramMessage = async (type: string, guest: string, gift?: string): Promise<void> => {
-    await api.post(`/gifts/telegram/?type=${type}&guest=${guest}&gift=${gift}`);
+export const sendTelegramMessage = async (type: string, guest: string, gift?: string, message?: string): Promise<void> => {
+    if (message) {
+        await api.post(`/gifts/telegram/?type=${type}&guest=${guest}&gift=${gift}`,
+            {
+                message: message,
+            }
+        );
+    } else {
+        await api.post(`/gifts/telegram/?type=${type}&guest=${guest}&gift=${gift}`);
+    }
 }
