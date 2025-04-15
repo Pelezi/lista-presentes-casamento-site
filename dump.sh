@@ -31,4 +31,4 @@ echo "Recreating local db..."
 createdb --owner=postgres --username=postgres $DB_NAME
 
 echo "Restoring local db from backup..."
-psql -d $DB_NAME -f $BACKUPS_PATH/$BACKUP_FILENAME --username=postgres
+psql -d $DB_NAME -f $BACKUP_FILENAME --username=postgres
