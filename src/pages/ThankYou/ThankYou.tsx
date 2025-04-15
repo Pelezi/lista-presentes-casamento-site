@@ -19,22 +19,33 @@ const ThankYou = () => {
     const type = queryParams.get("type");
     const giftId = queryParams.get("giftId");
 
+    const [showButtons, setShowButtons] = useState(false);
+    const [message, setMessage] = useState("");
+
     const handleSubmit = (values: { message: string }) => {
-        if (type && giftId) {
-            sendTelegramMessage('custom', guest.name, giftId, values.message);
-            toast.success('Mensagem enviada com sucesso!', {
-                position: "top-right",
-                autoClose: 5000,
-                hideProgressBar: false,
-                closeOnClick: false,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-                theme: "light",
-            });
-        } else {
-            toast.error("Erro ao enviar mensagem.");
-        }
+        // if (type && giftId) {
+        //     sendTelegramMessage('custom', guest.name, giftId, values.message);
+        //     toast.success('Mensagem enviada com sucesso!', {
+        //         position: "top-right",
+        //         autoClose: 5000,
+        //         hideProgressBar: false,
+        //         closeOnClick: false,
+        //         pauseOnHover: true,
+        //         draggable: true,
+        //         progress: undefined,
+        //         theme: "light",
+        //     });
+        // } else {
+        //     toast.error("Erro ao enviar mensagem.");
+        // }
+        setMessage(values.message);
+        setShowButtons(true);
+    };
+
+    const handleSendTo = (recipient: "noiva" | "noivo") => {
+        const phoneNumber = recipient === "noiva" ? "5581997250606" : "5581998625899";
+        const url = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
+        window.open(url, "_blank");
     };
 
     useEffect(() => {
@@ -81,7 +92,14 @@ const ThankYou = () => {
                                     placeholder="Escreva sua mensagem aqui"
                                 />
                             </div>
-                            <Button type="submit">Enviar Mensagem</Button>
+                            {!showButtons ? (
+                                <Button type="submit">Enviar Mensagem</Button>
+                            ) : (
+                                <div className={styles.buttonBox}>
+                                    <Button onClick={() => handleSendTo("noiva")}>Enviar para a Noiva</Button>
+                                    <Button onClick={() => handleSendTo("noivo")}>Enviar para o Noivo</Button>
+                                </div>
+                            )}
                         </>
                     )}
                 </Form>

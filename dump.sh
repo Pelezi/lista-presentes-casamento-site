@@ -10,6 +10,7 @@ DB_NAME=lista_presentes_casamento
 DB_USER=postgres
 BACKUPS_PATH=backups
 BACKUP_FILENAME=$DB_NAME.sql
+JSON_BACKUP_FILENAME=$DB_NAME.json
 # ----------------------------------------------------------------------------
 
 echo "Removing potential existing backups..."
@@ -23,6 +24,9 @@ if [ -f "$BACKUPS_PATH/$BACKUP_FILENAME" ]; then rm -f "$BACKUPS_PATH/$BACKUP_FI
 
 echo "Backuping remote render db..."
 pg_dump -d $RENDER_PG_EXTERNAL_CONNECTION_STRING/$DB_NAME > ${BACKUP_FILENAME}
+
+echo "Exporting database as JSON..."
+psql -d $RENDER_PG_EXTERNAL_CONNECTION_STRING/$DB_NAME -c "COPY (SELECT row_to_json(t) FROM (SELECT * FROM gift ORDER BY value asc) t) TO STDOUT;" > $JSON_BACKUP_FILENAME
 
 echo "Dropping local db..."
 dropdb --username=postgres $DB_NAME

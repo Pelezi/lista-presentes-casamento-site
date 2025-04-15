@@ -17,15 +17,15 @@ import Bio from "../pages/Bio";
 import ThankYou from "../pages/ThankYou";
 
 const AuthRoutes: React.FC = () => {
-    const { authenticated, isLoading } = useAuth();
+    // const { authenticated, isLoading } = useAuth();
 
-    if (isLoading) {
-        return <p>Carregando...</p>
-    }
+    // if (isLoading) {
+    //     return <p>Carregando...</p>
+    // }
 
-    if (!authenticated) {
-        return <Navigate to="/login" />
-    }
+    // if (!authenticated) {
+    //     return <Navigate to="/login" />
+    // }
 
 
     return (
@@ -33,10 +33,10 @@ const AuthRoutes: React.FC = () => {
             <Routes>
                 <Route path="/" element={<Home />} />
 
-                <Route path="/gifts/cadastrar" element={<ManipularGift />} />
+                {/* <Route path="/gifts/cadastrar" element={<ManipularGift />} />
                 <Route path="/gifts/editar" element={<ManipularGift />} />
 
-                <Route path="/admin" element={<Admin />} />
+                <Route path="/admin" element={<Admin />} /> */}
 
                 <Route path="/bio" element={<Bio />} />
 

@@ -2,7 +2,7 @@ import React, { useEffect, useState, useRef } from "react";
 
 import styles from "./Bio.module.css";
 import SocialMedia from "../../components/common/SocialMedia";
-import { sendTelegramMessage } from "../../services/giftService";
+// import { sendTelegramMessage } from "../../services/giftService";
 import { useAuth } from "../../contexts/AuthContext";
 
 import nggyu from "../../Assets/audio/Rick Astley - Never Gonna Give You Up.mp3"
@@ -67,7 +67,7 @@ const Bio = () => {
                     try {
                         clearInterval(timer);
                         hasOpenedUrl.current = true;
-                        sendTelegramMessage("rickroll", guest.name);
+                        // sendTelegramMessage("rickroll", guest.name);
                         setShowRickroll(true);
                         setIsPlaying(true);
                     } catch (error) {

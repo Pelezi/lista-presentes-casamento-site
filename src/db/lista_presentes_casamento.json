@@ -1,0 +1,254 @@
+[
+    {
+        "id": "61",
+        "name": "Você escolhe o valor",
+        "fileName": "6a6ddd34fb962208",
+        "mpcode": "http://localhost:5173/link.mercadopago.com.br/pelezitech",
+        "value": 0.00
+    },
+{
+        "id": "57",
+        "name": "Só pra não dizer que não dei nada",
+        "fileName": "c2d30c6bdfcbb51d",
+        "mpcode": "668813647-7698dda7-4d4b-48d0-b6ba-8e10cd87713e",
+        "value": 10.00
+    },
+{
+        "id": "60",
+        "name": "Um suco pro Noivo que não toma café",
+        "fileName": "da8a46158775511a",
+        "mpcode": "668813647-72c5f4e2-ec93-4a52-8cbc-97686215553d",
+        "value": 15.00
+    },
+{
+        "id": "2",
+        "name": "Lenço para a noiva não borrar toda a maquiagem",
+        "fileName": "61e8267c208eaa2c",
+        "mpcode": "668813647-599de5de-b3df-4a5b-9ebb-a39317454fd4",
+        "value": 30.00
+    },
+{
+        "id": "5",
+        "name": "Rolo de macarrão caso o noivo não se comporte",
+        "fileName": "05e9638489bcbf25",
+        "mpcode": "668813647-6cfd9591-853b-4403-8a08-667df9dd0534",
+        "value": 50.00
+    },
+{
+        "id": "9",
+        "name": "Conjunto de controle remotos para não ter briga",
+        "fileName": "9d52476e6ccc7ae1",
+        "mpcode": "668813647-4549f1f5-7bf9-4f05-a920-f517b681a3d4",
+        "value": 50.00
+    },
+{
+        "id": "3",
+        "name": "Maracujina para os noivos",
+        "fileName": "10e74c13c42eb40c",
+        "mpcode": "668813647-0e38ef5d-2d2e-48dd-868c-747d057dc14e",
+        "value": 50.00
+    },
+{
+        "id": "11",
+        "name": "Roupa sexy para a noiva usar na noite de núpcia",
+        "fileName": "dec260a792972dbd",
+        "mpcode": "668813647-ed4fabbb-d242-4b01-8119-b417f5bcbcb1",
+        "value": 90.00
+    },
+{
+        "id": "56",
+        "name": "Passe perdão pra quando a noiva queimar o cuscuz",
+        "fileName": "4aefe5955110312e",
+        "mpcode": "668813647-a14356de-e74c-4276-9d52-07fb37d5c72e",
+        "value": 90.00
+    },
+{
+        "id": "49",
+        "name": "Passe para o noivo esquecer a toalha molhada em cima da cama uma vez",
+        "fileName": "05c4747081e13654",
+        "mpcode": "668813647-58183537-e6c4-4768-9584-d96a50027c38",
+        "value": 90.00
+    },
+{
+        "id": "25",
+        "name": "Cueca sexy para a noite de núpcia",
+        "fileName": "95d4031cd117f4ad",
+        "mpcode": "668813647-f13d210e-beba-4789-abe6-74a0bf0d4664",
+        "value": 90.00
+    },
+{
+        "id": "7",
+        "name": "Taxa pra noiva não jogar o buquê para a sua namorada",
+        "fileName": "003451334384fdcb",
+        "mpcode": "668813647-0ff59697-5de5-49ee-b876-34c20b93d978",
+        "value": 100.00
+    },
+{
+        "id": "6",
+        "name": "Ajuda com o Uber",
+        "fileName": "cca81293057073d4",
+        "mpcode": "668813647-bdede458-e68b-4ac4-9dac-09dfc1a31ac2",
+        "value": 100.00
+    },
+{
+        "id": "29",
+        "name": "Taxa pra noiva jogar o buquê na sua direção",
+        "fileName": "cb9fad885d45e52f",
+        "mpcode": "668813647-1574dfd7-5420-4b82-a85f-3f2feb1fedbb",
+        "value": 120.00
+    },
+{
+        "id": "51",
+        "name": "Curso intensivo de 'sim, amor' para o noivo",
+        "fileName": "0aeadc8b30d3a282",
+        "mpcode": "668813647-888a4c4b-b71f-4dc2-907e-3966da92b6d8",
+        "value": 120.00
+    },
+{
+        "id": "46",
+        "name": "Kit de paciência para a noiva (válido para a vida toda)",
+        "fileName": "0f2048e19640a10e",
+        "mpcode": "668813647-8cc9a385-582d-42bb-9ffd-cb7bb36316f0",
+        "value": 150.00
+    },
+{
+        "id": "10",
+        "name": "Capacete contra rolo de macarrão para o noivo",
+        "fileName": "4fe7cae6b7887e0f",
+        "mpcode": "668813647-08b989d9-cbaa-4645-8bdf-0c085f685129",
+        "value": 160.00
+    },
+{
+        "id": "12",
+        "name": "Espirro em paris",
+        "fileName": "6ac4fd8187d1ee36",
+        "mpcode": "668813647-7383e514-ffad-49df-91dd-6696c9174521",
+        "value": 180.00
+    },
+{
+        "id": "62",
+        "name": "Dispensa do corte da gravata do noivo",
+        "fileName": "ce74a527b157d406",
+        "mpcode": "668813647-ff38f132-65db-4f5f-9a1d-f7dbc772383c",
+        "value": 200.00
+    },
+{
+        "id": "14",
+        "name": "Um ano de cabelo cortado para o noivo",
+        "fileName": "87bb934fd40522e3",
+        "mpcode": "668813647-d40aa8b4-8766-48d4-bc11-f985446b2be6",
+        "value": 240.00
+    },
+{
+        "id": "13",
+        "name": "Aluguel de um bebê para treinamento",
+        "fileName": "762cd61fa3552f1d",
+        "mpcode": "668813647-7c2e444d-c455-4a04-9ea9-53f7d4a04ceb",
+        "value": 250.00
+    },
+{
+        "id": "50",
+        "name": "Um ano de netflix",
+        "fileName": "a4005cc5c0a50f60",
+        "mpcode": "668813647-1b13fdf6-32e9-4589-be5c-6870c3d14702",
+        "value": 250.00
+    },
+{
+        "id": "47",
+        "name": "Sessão de terapia (quando descobrirem hábitos irritantes um do outro)",
+        "fileName": "99b0890673276dec",
+        "mpcode": "668813647-e0ff2ff2-66c1-4a96-88ee-f45b41d97d4e",
+        "value": 250.00
+    },
+{
+        "id": "59",
+        "name": "Mimo para a bebê (Eu não estou grávida, a bebê sou eu)",
+        "fileName": "99a1a15f1cc50879",
+        "mpcode": "668813647-3f16e60f-4140-4d20-9bf7-63779bba6d3b",
+        "value": 250.00
+    },
+{
+        "id": "18",
+        "name": "Coral pra cantar 'Aleluia' na entrada do noivo",
+        "fileName": "9bde66923059f9cf",
+        "mpcode": "668813647-11180547-a2e6-44f5-a03c-315bbe95d22a",
+        "value": 300.00
+    },
+{
+        "id": "16",
+        "name": "Patrocine a despedida de solteira da noiva",
+        "fileName": "c9b0048a2a39a7fd",
+        "mpcode": "668813647-9f3d3518-a027-424b-932d-5b775baf1162",
+        "value": 350.00
+    },
+{
+        "id": "36",
+        "name": "Patrocine a despedida de solteiro do noivo",
+        "fileName": "59e63f2234fb287b",
+        "mpcode": "668813647-8d25af6c-37ea-457a-9dcc-e2eb57dc056b",
+        "value": 350.00
+    },
+{
+        "id": "40",
+        "name": "Coral pra cantar 'Sou um milagre' na entrada do noivo",
+        "fileName": "e9333eda14b9a040",
+        "mpcode": "668813647-b3f013d6-d7ca-4a99-8158-12bd8660c826",
+        "value": 400.00
+    },
+{
+        "id": "17",
+        "name": "Garanta o jantar dos noivos sdurante o 1º mês de casado",
+        "fileName": "45b84af9a5f21006",
+        "mpcode": "668813647-0d5ae25d-14ba-437a-86b6-8b13f610fc83",
+        "value": 500.00
+    },
+{
+        "id": "48",
+        "name": "Ajuda para o casal comprar um cachorro/gato para preencher o vazio antes dos filhos",
+        "fileName": "27167cd72bcee8a7",
+        "mpcode": "668813647-1ee3a47b-4e45-48e8-8c36-4eb5bf23dc29",
+        "value": 500.00
+    },
+{
+        "id": "41",
+        "name": "Prioridade no quarto de visita na casa dos noivos",
+        "fileName": "714d7ff4b9b52048",
+        "mpcode": "668813647-801cb8d7-f85a-4854-9329-69a41feae444",
+        "value": 600.00
+    },
+{
+        "id": "42",
+        "name": "Ajuda para mobiliar a casa",
+        "fileName": "35c975e355e81fb8",
+        "mpcode": "668813647-2e591486-282e-4b81-8fc7-9ea495246074",
+        "value": 1000.00
+    },
+{
+        "id": "63",
+        "name": "Hospedagem da lua de mel",
+        "fileName": "69a197f26a079f18",
+        "mpcode": "668813647-da91c66b-847b-4214-aa8a-e7ff0b7abe2b",
+        "value": 1700.00
+    },
+{
+        "id": "22",
+        "name": "Ajuda para a aposentadoria dos noivos",
+        "fileName": "e093736f5b4bd353",
+        "mpcode": "668813647-1797fc0d-f6c4-4c30-998f-85bfed3f66f0",
+        "value": 3000.00
+    },
+{
+        "id": "58",
+        "name": "Se por uma intervenção divina você se sentir tocado",
+        "fileName": "ad8e416a9ca40d81",
+        "mpcode": "668813647-212fc5c0-734f-4b31-bc4b-88ac9877006f",
+        "value": 5000.00
+    },
+{
+        "id": "1",
+        "name": "Poder ir junto com os noivos para a lua de mel",
+        "fileName": "0eac82fc45724a37",
+        "mpcode": "668813647-7293ac8b-79a1-4d64-9f24-072e719b45c4",
+        "value": 100000.00
+    }
+]

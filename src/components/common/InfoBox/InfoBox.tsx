@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import styles from "./InfoBox.module.css";
 import { useNavigate } from "react-router-dom";
-import { Gift, sendTelegramMessage } from "../../../services/giftService";
+import { Gift } from "../../../services/giftService";
 import Button from "../Button";
 import { Guest } from "../../../services/authService";
 
@@ -23,7 +23,7 @@ const InfoBox: React.FC<InfoboxProps> = ({ gift, onPixSelect, guest }) => {
 
     const loadMercadoPago = (preferenceId?: string) => {
         if (!preferenceId) return;
-        sendTelegramMessage("mp", guest.name, gift.id);
+        // sendTelegramMessage("mp", guest.name, gift.id);
         const script = document.createElement("script");
         script.src = "/web-payment-checkout.js";
         script.setAttribute("data-preference-id", preferenceId);
@@ -39,7 +39,7 @@ const InfoBox: React.FC<InfoboxProps> = ({ gift, onPixSelect, guest }) => {
 
     const handleCreditOrBoletoSelection = () => {
         if (gift.value <= 0) {
-            sendTelegramMessage("mp", guest.name, gift.id);
+            // sendTelegramMessage("mp", guest.name, gift.id);
             setShowPaymentOptions(false);
             window.open("https://link.mercadopago.com.br/pelezitech", "_blank");
             navigate("/thankyou")

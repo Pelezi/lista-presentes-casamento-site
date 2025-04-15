@@ -5,7 +5,8 @@ import styles from "./Home.module.css";
 import Title from "../../components/common/Title";
 import InfoBox from "../../components/common/InfoBox";
 
-import { Gift, getGifts, sendTelegramMessage } from "../../services/giftService";
+// import { Gift, getGifts, sendTelegramMessage } from "../../services/giftService";
+import { Gift } from "../../services/giftService";
 
 import { useAuth } from "../../contexts/AuthContext";
 
@@ -17,9 +18,11 @@ import Button from "../../components/common/Button";
 
 import { QRCodeSVG } from "qrcode.react";
 
+import presentes from "../../db/lista_presentes_casamento.json";
+
 const Home = () => {
     const { guest } = useAuth();
-    const [gifts, setGifts] = useState<Gift[]>([]);
+    const [gifts] = useState<Gift[]>(presentes);
     const [isScrolledToBottom, setIsScrolledToBottom] = useState(false);
     const [showPixModal, setShowPixModal] = useState(false);
     const [selectedGift, setSelectedGift] = useState<Gift | null>(null);
@@ -33,14 +36,14 @@ const Home = () => {
 
     const navigate = useNavigate();
 
-    const fetchGifts = async () => {
-        try {
-            const response = await getGifts();
-            setGifts(response);
-        } catch (error) {
-            throw new Error("Error fetching gifts: " + error);
-        }
-    }
+    // const fetchGifts = async () => {
+    //     try {
+    //         const response = await getGifts();
+    //         setGifts(response);
+    //     } catch (error) {
+    //         throw new Error("Error fetching gifts: " + error);
+    //     }
+    // }
 
     const handleScroll = () => {
         const isBottom = (window.innerHeight * 1) + window.scrollY >= document.documentElement.scrollHeight / 2;
@@ -48,7 +51,7 @@ const Home = () => {
     };
 
     useEffect(() => {
-        fetchGifts();
+        // fetchGifts();
         window.addEventListener("scroll", handleScroll);
 
         const hasVisited = localStorage.getItem("hasVisited");
@@ -64,7 +67,7 @@ const Home = () => {
 
     const handleBioButtonClick = () => {
         try {
-            sendTelegramMessage("bio", guest.name);
+            // sendTelegramMessage("bio", guest.name);
             setTimeout(() => {
                 navigate("/bio");
             }, 400);
@@ -141,7 +144,7 @@ const Home = () => {
                 setQrCode("00020126430014br.gov.bcb.pix0121abcsandro@hotmail.com5204000053039865802BR5924Alessandro Cardoso da Co6008Brasilia62230519daqr6688136473273566304123A");
                 setSelectedGift(gift);
                 setShowPixModal(true);
-                sendTelegramMessage("pix", guest.name, gift.id);
+                // sendTelegramMessage("pix", guest.name, gift.id);
             } else {
                 const value = gift.value;
                 const valueLength = value.toString().length.toString().padStart(2, '0'); // Ensure length is always two characters
@@ -155,7 +158,7 @@ const Home = () => {
                 setQrCode(formattedqrcodeWithCRC);
                 setSelectedGift(gift);
                 setShowPixModal(true);
-                sendTelegramMessage("pix", guest.name, gift.id);
+                // sendTelegramMessage("pix", guest.name, gift.id);
             }
         } catch (error) {
             throw new Error("Error generating Pix QR code: " + error);
